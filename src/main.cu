@@ -4,8 +4,10 @@
 __global__
 void add(int n, float *x, float *y)
 {
-  for (int i = 0; i < n; i++)
-    y[i] = x[i] + y[i];
+  int index = threadIdx.x;
+  int stride = blockDim.x;
+  for (int i = index; i < n; i += stride)
+      y[i] = x[i] + y[i];
 }
 
 int main(void)
